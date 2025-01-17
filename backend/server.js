@@ -1,50 +1,37 @@
 const express = require("express");
 const axios = require('axios');
-const bodyParser = require("body-parser");
-require('dotenv').config();
-
 const cors = require('cors');
+require('dotenv').config();
 
 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", methods: ["POST"] }));
 
-// Load OpenAI API Key
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const RASA_SERVER_URL = "http://localhost:5005/webhooks/rest/webhook"; // Rasa API
 
-// Debugging Environment Variables
-console.log('OpenAI API Key:', OPENAI_API_KEY ? 'Loaded' : 'Not Loaded');
-console.log('Environment Variables:', process.env);
+
 
 
 
 //Endpoint to handle chat requests
 app.post('/chat', async (req, res) => {
-  const userQuery = req.body.query;
-
+  
   try{
-    const response = await axios.post('https://api.openai.com/v1/completions', {
-      model: 'gpt-3.5-turbo', //Use a different model if you want
-      prompt: `User asks: ${userQuery}\nProvide accurate and informative response about computer hardware`,
-      max_tokens: 150, // Adjust this if you want to limit the length of the response
-      temperature: 0.7,//Controls how creative the response is.
-      n: 1,
-      stop: undefined
-    }, {
-      headers: {
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      }
+    const userMessage = req.body.message;
+
+    const response = await axios.post(RASA_SERVER_URL, {
+      sender: "user",
+      message: userMessage
+    
     });
 
-    const message = response.data.choices[0].text.trim();
-    res.json({response: message});
+    res.json(response.data);
   } catch (error) {
-    console.error(error);
-    res.json({response: 'An error occured when processing the request.'});
+    console.error("Error communicating with RASA: " ,error);
+    res.status(500).send("Error connecting to chatbot.");
   }
 });
 

@@ -1,5 +1,7 @@
 version: "3.1"
 
+# stories.yml file defines possible conversations between the user and the bot.
+
 stories:
 
 - story: happy path
@@ -28,3 +30,18 @@ stories:
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+- story: Explain CPU
+  steps:
+  - intent: ask_cpu
+  - action: utter_ask_cpu
+
+- story: Explain GPU
+  steps:
+  - intent: ask_gpu
+  - action: utter_ask_cpu
+
+- story: Explain RAM
+  steps:
+  - intent: ask_ram
+  - action: utter_ask_ram

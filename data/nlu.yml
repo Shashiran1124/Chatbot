@@ -89,3 +89,27 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+# Intent examples about Computer Hardware
+- intent: ask_cpu
+  examples: |
+    - What is a CPU?
+    - Can you explain what a processor does?
+    - What does a CPU do?
+    - Tell me about processors.
+
+- intent: ask_gpu
+  examples: |
+    - What is a GPU?
+    - Can you explain graphic cards?
+    - What does a GPU do?
+    - Tell me about graphic processors.
+
+- intent: ask_ram
+  examples: |
+    - What is RAM?
+    - Explain memory in computers.
+    - How much RAM do i need?
+    - What is the purpose of RAM?
+
+

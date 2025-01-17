@@ -1,5 +1,7 @@
 version: "3.1"
 
+# domain.yml file defines responses that our bot will use to answer.
+
 intents:
   - greet
   - goodbye
@@ -8,6 +10,9 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - ask_cpu
+  - ask_gpu
+  - ask_ram
 
 responses:
   utter_greet:
@@ -28,6 +33,15 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_ask_cpu:
+  - text: "A CPU (Central Processing Unit) is the brain of the computer, responsible for executing instructions and processing data."
+
+  utter_ask_gpu:
+  - text: "A GPU (Graphics Processing Unit) is used for rendering images, videos, and graphics-intensive tasks such as gaming and AI processing."
+
+  utter_ask_ram:
+  - text: "RAM (Random Access Memory) is a type of memory that stores temporary data to help programs run faster."
 
 session_config:
   session_expiration_time: 60
